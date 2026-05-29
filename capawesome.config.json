@@ -2,12 +2,20 @@
     "cloud": {
         "apps": [
             {
-                "appId": "686bb541-04f2-426d-972b-345eaeac526b",
-                "baseDir": "web/"
+                "appId": "4e35867a-992f-4616-a59b-91fd9c6f7af9",
+                "baseDir": "android/"
             },
             {
                 "appId": "1234e875-f53c-411a-8f83-89ea304757c8",
                 "baseDir": "featured-component/"
+            },
+            {
+                "appId": "4c9a179a-0796-47df-b8a2-351ead18fa4b",
+                "baseDir": "ios/"
+            },
+            {
+                "appId": "686bb541-04f2-426d-972b-345eaeac526b",
+                "baseDir": "web/"
             }
         ]
     }
