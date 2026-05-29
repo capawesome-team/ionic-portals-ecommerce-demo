@@ -39,6 +39,7 @@ jobs:
         run: |
           npx @capawesome/cli@${{ env.CAPAWESOME_CLI_VERSION }} apps:builds:create \
             --app-id ${{ env.CAPAWESOME_CLOUD_APP_ID_ANDROID }} \
+            --platform android \
             --type debug \
             --git-ref ${{ github.event.pull_request.head.sha || github.sha }} \
             --yes
@@ -78,6 +79,7 @@ jobs:
         run: |
           npx @capawesome/cli@${{ env.CAPAWESOME_CLI_VERSION }} apps:builds:create \
             --app-id ${{ env.CAPAWESOME_CLOUD_APP_ID_IOS }} \
+            --platform ios \
             --type simulator \
             --git-ref ${{ github.event.pull_request.head.sha || github.sha }} \
             --yes
