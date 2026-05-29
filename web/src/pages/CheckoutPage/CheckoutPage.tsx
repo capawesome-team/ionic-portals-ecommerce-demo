@@ -20,7 +20,6 @@ import AddressItem from '../../components/AddressItem';
 import PaymentItem from '../../components/PaymentItem';
 import * as Portals from '@ionic/portals';
 import FadeIn from '../../components/FadeIn';
-import LiveUpdateProviderTestPanel from '../../components/LiveUpdateProviderTestPanel';
 
 const CheckoutPage: React.FC = () => {
   const { cart, user, checkout } = useContext(DataContext);
@@ -122,8 +121,6 @@ const CheckoutPage: React.FC = () => {
               >
                 Place Your Order Please
               </IonButton>
-
-              <LiveUpdateProviderTestPanel target="webapp" />
             </>
           )}
         </IonContent>

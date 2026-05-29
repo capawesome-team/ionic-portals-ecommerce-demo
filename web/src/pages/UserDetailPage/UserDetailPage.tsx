@@ -22,7 +22,6 @@ import AddressItem from '../../components/AddressItem';
 import PaymentItem from '../../components/PaymentItem';
 import ImageCropper from '../../components/ImageCropper';
 import FadeIn from '../../components/FadeIn';
-import LiveUpdateProviderTestPanel from '../../components/LiveUpdateProviderTestPanel';
 
 interface FormData {
   firstName: string;
@@ -179,8 +178,6 @@ const UserDetailPage = () => {
                   New Payment Method
                 </IonButton>
               </div>
-
-              <LiveUpdateProviderTestPanel target="webapp" />
             </>
           )}
         </IonContent>

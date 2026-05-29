@@ -11,7 +11,6 @@ import {
 import * as Portals from '@ionic/portals';
 import { DataContext } from '../../DataProvider';
 import FadeIn from '../../components/FadeIn';
-import LiveUpdateProviderTestPanel from '../../components/LiveUpdateProviderTestPanel';
 
 import './CartTotalPage.scss';
 
@@ -47,8 +46,6 @@ const CartTotalPage: React.FC = () => {
               >
                 Checkout
               </IonButton>
-
-              <LiveUpdateProviderTestPanel target="webapp" />
             </>
           )}
         </IonContent>
