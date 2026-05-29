@@ -1,3 +1,0 @@
-/*! For license information please see 727.97a3dae4.chunk.js.LICENSE.txt */
-"use strict";(globalThis.webpackChunkportals_ecommerce_demo=globalThis.webpackChunkportals_ecommerce_demo||[]).push([[727],{727(e,t,o){o.d(t,{startStatusTap:()=>a});var s=o(231),n=o(891),r=o(325);const a=()=>{const e=window;e.addEventListener("statusTap",()=>{(0,s.k)(()=>{const t=document.elementFromPoint(e.innerWidth/2,e.innerHeight/2);if(!t)return;const o=(0,n.a)(t);o&&new Promise(e=>(0,r.c)(o,e)).then(()=>{(0,s.w)(async()=>{o.style.setProperty("--overflow","hidden"),await(0,n.s)(o,300),o.style.removeProperty("--overflow")})})})})}}}]);
-//# sourceMappingURL=727.97a3dae4.chunk.js.map
