@@ -94,4 +94,6 @@ Then build and run the Android app.
 
 ## License
 
-MIT — see [LICENSE](./LICENSE). This project is a fork of [`ionic-team/portals-ecommerce-demo`](https://github.com/ionic-team/portals-ecommerce-demo) and retains the original copyright notice.
+See [LICENSE](./LICENSE). 
+
+This project is a fork of [`ionic-team/portals-ecommerce-demo`](https://github.com/ionic-team/portals-ecommerce-demo) and retains the original copyright notice.
