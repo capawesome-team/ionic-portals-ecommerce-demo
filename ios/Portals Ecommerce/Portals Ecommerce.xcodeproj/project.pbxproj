@@ -501,6 +501,7 @@
 				62941E7E265DA67F00EE7FE4 /* Sources */,
 				62941E7F265DA67F00EE7FE4 /* Frameworks */,
 				62941E80265DA67F00EE7FE4 /* Resources */,
+				CA00000000000000000000E1 /* Seed Portals Web Content */,
 				8E6FC7E7CC85DD794A20AA72 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
@@ -520,6 +521,7 @@
 				A775FE6A2874D329003C2068 /* Sources */,
 				A775FE6B2874D329003C2068 /* Frameworks */,
 				A775FE6C2874D329003C2068 /* Resources */,
+				CA00000000000000000000E2 /* Seed Portals Web Content */,
 				28129E2DBEC3915BFEE45B67 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
@@ -769,6 +771,44 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Ecommerce/Pods-Ecommerce-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		CA00000000000000000000E1 /* Seed Portals Web Content */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Seed Portals Web Content";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\nRES_DIR=\"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/portals\"\nseed() {\n  if [ -d \"$1\" ]; then\n    rm -rf \"${RES_DIR}/$2\"\n    mkdir -p \"${RES_DIR}/$2\"\n    cp -R \"$1/.\" \"${RES_DIR}/$2/\"\n    echo \"Seeded portals/$2 from $1\"\n  else\n    echo \"warning: $1 not found; skipping portals/$2 seed (run scripts/seed-portals.sh to build the web apps)\"\n  fi\n}\nseed \"${SRCROOT}/../../web/build\" shopwebapp\nseed \"${SRCROOT}/../../featured-component/build\" featured\n";
+		};
+		CA00000000000000000000E2 /* Seed Portals Web Content */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Seed Portals Web Content";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\nRES_DIR=\"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/portals\"\nseed() {\n  if [ -d \"$1\" ]; then\n    rm -rf \"${RES_DIR}/$2\"\n    mkdir -p \"${RES_DIR}/$2\"\n    cp -R \"$1/.\" \"${RES_DIR}/$2/\"\n    echo \"Seeded portals/$2 from $1\"\n  else\n    echo \"warning: $1 not found; skipping portals/$2 seed (run scripts/seed-portals.sh to build the web apps)\"\n  fi\n}\nseed \"${SRCROOT}/../../web/build\" shopwebapp\nseed \"${SRCROOT}/../../featured-component/build\" featured\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

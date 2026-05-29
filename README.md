@@ -33,11 +33,16 @@ See the [plugin integration guide](https://github.com/capawesome-team/capacitor-
 
 ### Web content delivery and offline support
 
-Web content is delivered **exclusively via Live Updates at runtime** — no web assets are bundled into the native app at build time. The original Ionic reference app shipped a "Copy Web App" build phase (running the `portals sync` CLI against a `.portals.yaml` config) that seeded each Portal's `startDir` from Appflow during the native build. That phase has been **removed**, since this fork sources its bundles from Capawesome Cloud instead.
+Each Portal ships with **bundled seed content** so it renders on first launch and offline, while Live Updates refresh it at runtime. The seed is generated from the `web/` and `featured-component/` builds and is **not** committed to the repo. (The original Ionic reference app seeded this via a "Copy Web App" build phase running the `portals sync` CLI against Appflow; this fork replaces that with a CLI-free script that sources the content from the local web builds.)
 
-As a consequence, on a **fresh first launch** — before `syncProvider()` finishes downloading the bundle from Capawesome Cloud — the Portals have no local fallback content and render empty briefly. Once a bundle has been downloaded it is cached and loaded on subsequent launches.
+- In **Capawesome Cloud**, the iOS app's `dependencyInstallCommand` (see `capawesome.config.json`) runs `scripts/seed-portals.sh`, which builds both web apps. The `Seed Portals Web Content` Xcode build phase then copies their output into the app bundle at `portals/shopwebapp` and `portals/featured` (matching the Portals' `startDir`).
+- For a **local Xcode build**, run the script once first so the seed exists:
 
-If you need **offline support** (web content available on first launch or without a network connection), you must take care of this yourself as part of your build process. For example, re-introduce a build step that copies the `web/build` and `featured-component/build` output into the app bundle under each Portal's `startDir` (`portals/shopwebapp` and `portals/featured`).
+  ```bash
+  ./scripts/seed-portals.sh
+  ```
+
+  If you skip it the build still succeeds — the build phase logs a warning and the app launches without offline seed content (Portals stay empty until the first Live Update download completes).
 
 ## Prerequisites
 

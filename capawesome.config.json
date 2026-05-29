@@ -11,7 +11,8 @@
             },
             {
                 "appId": "4c9a179a-0796-47df-b8a2-351ead18fa4b",
-                "baseDir": "ios/Portals Ecommerce/"
+                "baseDir": "ios/Portals Ecommerce/",
+                "dependencyInstallCommand": "npm ci && bash ../../scripts/seed-portals.sh"
             },
             {
                 "appId": "686bb541-04f2-426d-972b-345eaeac526b",
