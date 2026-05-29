@@ -120,7 +120,7 @@ const CheckoutPage: React.FC = () => {
                   Portals.publish({ topic: 'dismiss', data: result });
                 }}
               >
-                Place Your Order
+                Place Your Order Please
               </IonButton>
 
               <LiveUpdateProviderTestPanel target="webapp" />
