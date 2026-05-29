@@ -1,0 +1,103 @@
+name: Capawesome
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    paths-ignore:
+      - '**.md'
+  workflow_dispatch:
+
+env:
+  CAPAWESOME_CLOUD_APP_ID_ANDROID: 4e35867a-992f-4616-a59b-91fd9c6f7af9
+  CAPAWESOME_CLOUD_APP_ID_FEATURED_COMPONENT: 1234e875-f53c-411a-8f83-89ea304757c8
+  CAPAWESOME_CLOUD_APP_ID_IOS: 4c9a179a-0796-47df-b8a2-351ead18fa4b
+  CAPAWESOME_CLOUD_APP_ID_WEB: 686bb541-04f2-426d-972b-345eaeac526b
+  CAPAWESOME_CLI_VERSION: latest
+  NODE_VERSION: 24
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-android:
+    name: Build Android
+    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    steps:
+      - name: Set up Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Authenticate with Capawesome Cloud
+        run: npx @capawesome/cli@${{ env.CAPAWESOME_CLI_VERSION }} login --token ${{ secrets.CAPAWESOME_CLOUD_TOKEN }}
+      - name: Build Android
+        run: |
+          npx @capawesome/cli@${{ env.CAPAWESOME_CLI_VERSION }} apps:builds:create \
+            --app-id ${{ env.CAPAWESOME_CLOUD_APP_ID_ANDROID }} \
+            --type debug \
+            --git-ref ${{ github.event.pull_request.head.sha || github.sha }} \
+            --yes
+
+  build-featured-component:
+    name: Build Featured Component
+    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    steps:
+      - name: Set up Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Authenticate with Capawesome Cloud
+        run: npx @capawesome/cli@${{ env.CAPAWESOME_CLI_VERSION }} login --token ${{ secrets.CAPAWESOME_CLOUD_TOKEN }}
+      - name: Build Featured Component
+        run: |
+          npx @capawesome/cli@${{ env.CAPAWESOME_CLI_VERSION }} apps:builds:create \
+            --app-id ${{ env.CAPAWESOME_CLOUD_APP_ID_FEATURED_COMPONENT }} \
+            --platform web \
+            --type debug \
+            --git-ref ${{ github.event.pull_request.head.sha || github.sha }} \
+            --yes
+
+  build-ios:
+    name: Build iOS
+    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    steps:
+      - name: Set up Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Authenticate with Capawesome Cloud
+        run: npx @capawesome/cli@${{ env.CAPAWESOME_CLI_VERSION }} login --token ${{ secrets.CAPAWESOME_CLOUD_TOKEN }}
+      - name: Build iOS
+        run: |
+          npx @capawesome/cli@${{ env.CAPAWESOME_CLI_VERSION }} apps:builds:create \
+            --app-id ${{ env.CAPAWESOME_CLOUD_APP_ID_IOS }} \
+            --type simulator \
+            --git-ref ${{ github.event.pull_request.head.sha || github.sha }} \
+            --yes
+
+  build-web:
+    name: Build Web
+    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    steps:
+      - name: Set up Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Authenticate with Capawesome Cloud
+        run: npx @capawesome/cli@${{ env.CAPAWESOME_CLI_VERSION }} login --token ${{ secrets.CAPAWESOME_CLOUD_TOKEN }}
+      - name: Build Web
+        run: |
+          npx @capawesome/cli@${{ env.CAPAWESOME_CLI_VERSION }} apps:builds:create \
+            --app-id ${{ env.CAPAWESOME_CLOUD_APP_ID_WEB }} \
+            --platform web \
+            --type debug \
+            --git-ref ${{ github.event.pull_request.head.sha || github.sha }} \
+            --yes
