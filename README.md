@@ -98,11 +98,11 @@ Get your registration key from [ionic.io/register-portals](https://ionic.io/regi
 
 ### 5. Run on iOS
 
-The Capawesome plugin is referenced from the root `package.json` so the Podfile can resolve it via `node_modules` (the native app has no co-located Capacitor web project). Install the npm dependency, then the pods:
+The Capawesome plugin is referenced from the app's `package.json` (in `ios/Portals Ecommerce/`) so the Podfile can resolve it via `node_modules` (the native app has no co-located Capacitor web project). Install the npm dependency, then the pods:
 
 ```bash
-npm install
 cd "./ios/Portals Ecommerce/"
+npm install
 pod install
 xed "Portals Ecommerce.xcworkspace"
 ```
