@@ -1,0 +1,14 @@
+{
+    "cloud": {
+        "apps": [
+            {
+                "appId": "686bb541-04f2-426d-972b-345eaeac526b",
+                "baseDir": "web/"
+            },
+            {
+                "appId": "1234e875-f53c-411a-8f83-89ea304757c8",
+                "baseDir": "featured-component/"
+            }
+        ]
+    }
+}
