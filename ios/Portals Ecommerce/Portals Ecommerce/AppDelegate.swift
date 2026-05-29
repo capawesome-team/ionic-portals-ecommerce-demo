@@ -12,7 +12,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
 
         // Register Portals
-        // PortalsRegistrationManager.shared.register(key: "")
+        // PortalsRegistrationManager.shared.register(key: "YOUR_PORTALS_KEY")
 
         scheduleProviderSync(attempt: 1)
 
