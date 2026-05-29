@@ -52,6 +52,7 @@ extension Cart.Item: Identifiable {
     var id: Int { product.id }
 }
 
+#if DEBUG
 struct CartListView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
@@ -65,4 +66,5 @@ struct CartListView_Previews: PreviewProvider {
         }
     }
 }
+#endif
 
