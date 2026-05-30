@@ -1,0 +1,5 @@
+ext {
+    // Compile the Capawesome Ionic Live Update Provider into the plugin so it
+    // registers the `capawesome` provider with the Ionic LiveUpdateProviderRegistry.
+    capawesomeCapacitorLiveUpdateIncludeIonicProvider = true
+}

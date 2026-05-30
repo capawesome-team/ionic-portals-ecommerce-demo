@@ -14,3 +14,11 @@ plugins {
 
 include ':app'
 rootProject.name = "Portals Ecommerce"
+
+// Capacitor + Capawesome live update plugin, consumed from the local node_modules
+// (the native host has no `npx cap sync` to generate these includes).
+include ':capacitor-android'
+project(':capacitor-android').projectDir = new File('node_modules/@capacitor/android/capacitor')
+
+include ':capawesome-capacitor-live-update'
+project(':capawesome-capacitor-live-update').projectDir = new File('node_modules/@capawesome/capacitor-live-update/android')

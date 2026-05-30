@@ -1,0 +1,8 @@
+{
+  "name": "portals-ecommerce-android",
+  "private": true,
+  "dependencies": {
+    "@capacitor/android": "8.2.0",
+    "@capawesome/capacitor-live-update": "8.2.1-dev.70823ec8.1778138208"
+  }
+}
