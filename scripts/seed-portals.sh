@@ -12,8 +12,7 @@ root="$(cd "$(dirname "$0")/.." && pwd)"
 
 for app in web featured-component; do
   echo "==> Building $app"
-  npm --prefix "$root/$app" ci
-  npm --prefix "$root/$app" run build
+  (cd "$root/$app" && npm ci && npm run build)
 done
 
 echo "==> Done. The Xcode 'Seed Portals Web Content' build phase will copy the output into the app bundle."
