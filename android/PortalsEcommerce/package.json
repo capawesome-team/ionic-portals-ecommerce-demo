@@ -3,6 +3,6 @@
   "private": true,
   "dependencies": {
     "@capacitor/android": "8.2.0",
-    "@capawesome/capacitor-live-update": "8.2.1-dev.70823ec8.1778138208"
+    "@capawesome/capacitor-live-update": "8.3.0-dev.f9cc1d15.1783929784"
   }
 }

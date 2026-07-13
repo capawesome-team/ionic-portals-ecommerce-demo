@@ -37,7 +37,7 @@ dependencies {
     // Ionic Portals and Capacitor Dependencies.
     // Capacitor core is provided by the local :capacitor-android module (required by the
     // Capawesome plugin), so exclude the transitive Maven core to avoid duplicate classes.
-    implementation('io.ionic:portals:0.14.0-rc.0') {
+    implementation('io.ionic:portals:0.14.0') {
         exclude group: 'com.capacitorjs', module: 'core'
     }
     implementation('com.capacitorjs:camera:8.0.1') {

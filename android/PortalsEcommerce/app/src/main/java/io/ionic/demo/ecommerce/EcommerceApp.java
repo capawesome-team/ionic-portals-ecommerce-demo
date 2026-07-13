@@ -2,8 +2,6 @@ package io.ionic.demo.ecommerce;
 
 import android.app.Application;
 import android.content.Context;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 
 import com.capacitorjs.plugins.camera.CameraPlugin;
@@ -13,13 +11,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.capawesome.capacitorjs.plugins.liveupdate.LiveUpdatePlugin;
+import io.capawesome.capacitorjs.plugins.liveupdate.providers.ionic.LiveUpdateIonicManager;
 import io.ionic.demo.ecommerce.data.ShoppingCart;
 import io.ionic.demo.ecommerce.plugins.ShopAPIPlugin;
-import io.ionic.demo.ecommerce.portals.DeferredCapawesomeLiveUpdateManager;
 import io.ionic.demo.ecommerce.portals.FadePortalFragment;
-import io.ionic.liveupdateprovider.LiveUpdateProviderError;
-import io.ionic.liveupdateprovider.LiveUpdateProviderSyncCallback;
-import io.ionic.liveupdateprovider.LiveUpdateProviderSyncResult;
+import io.ionic.liveupdateprovider.ProviderError;
 import io.ionic.portals.Portal;
 import io.ionic.portals.PortalManager;
 import io.ionic.portals.PortalsPlugin;
@@ -78,9 +74,6 @@ public class EcommerceApp extends Application {
         // Start app with a fresh shopping cart
         shoppingCart = new ShoppingCart();
 
-        // Register Portals
-        // PortalManager.register("YOUR_PORTALS_KEY");
-
         // Checkout Portal
         PortalManager.newPortal("checkout")
                 .setStartDir("webapp")
@@ -113,7 +106,7 @@ public class EcommerceApp extends Application {
 
         // Fetch the latest web bundle for each portal from Capawesome Cloud.
         for (String portalName : PROVIDER_PORTALS) {
-            scheduleProviderSync(portalName, 1);
+            syncProvider(portalName);
         }
     }
 
@@ -124,48 +117,40 @@ public class EcommerceApp extends Application {
     private static final String CHANNEL = "default";
 
     private static final String[] PROVIDER_PORTALS = {"checkout", "help", "profile"};
-    private static final int MAX_SYNC_ATTEMPTS = 20;
     private static final String TAG = "EcommerceApp";
 
     /**
-     * Builds a deferred live update manager for a portal, backed by the Capawesome provider.
+     * Constructs a Capawesome live update manager for a portal.
      *
      * @param managerKey A stable, unique key per portal so each persists its own active bundle.
      */
-    private DeferredCapawesomeLiveUpdateManager liveUpdateManager(String managerKey) {
-        Map<String, Object> config = new HashMap<>();
-        config.put("managerKey", managerKey);
-        config.put("appId", WEB_APP_ID);
-        config.put("channel", CHANNEL);
-        return new DeferredCapawesomeLiveUpdateManager(this, config);
+    private LiveUpdateIonicManager liveUpdateManager(String managerKey) {
+        Map<String, Object> configuration = new HashMap<>();
+        configuration.put("managerKey", managerKey);
+        configuration.put("appId", WEB_APP_ID);
+        configuration.put("channel", CHANNEL);
+        try {
+            return new LiveUpdateIonicManager(this, configuration);
+        } catch (ProviderError.InvalidConfiguration error) {
+            throw new IllegalStateException(error);
+        }
     }
 
     /**
-     * Triggers a provider sync for a portal, retrying until the Capawesome provider has been
-     * registered (which happens once a portal's bridge loads).
+     * Triggers a provider sync for a portal. The manager is constructed directly, so no
+     * registration or retry logic is needed.
      */
-    private void scheduleProviderSync(String portalName, int attempt) {
-        new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            Portal portal = PortalManager.getPortal(portalName);
-            if (portal == null) {
-                return;
+    private void syncProvider(String portalName) {
+        Portal portal = PortalManager.getPortal(portalName);
+        if (portal == null) {
+            return;
+        }
+        portal.syncProviderAsync().whenComplete((result, throwable) -> {
+            if (throwable == null) {
+                Log.d(TAG, "Capawesome provider sync succeeded for portal '" + portalName + "'.");
+            } else {
+                Log.w(TAG, "Capawesome provider sync failed for portal '" + portalName + "'.", throwable);
             }
-            portal.syncProvider(new LiveUpdateProviderSyncCallback() {
-                @Override
-                public void onSuccess(LiveUpdateProviderSyncResult result) {
-                    Log.d(TAG, "Capawesome provider sync succeeded for portal '" + portalName + "'.");
-                }
-
-                @Override
-                public void onFailure(LiveUpdateProviderError.SyncFailed error) {
-                    if (attempt < MAX_SYNC_ATTEMPTS) {
-                        scheduleProviderSync(portalName, attempt + 1);
-                    } else {
-                        Log.w(TAG, "Capawesome provider sync did not complete for portal '" + portalName
-                                + "' after " + MAX_SYNC_ATTEMPTS + " attempts.");
-                    }
-                }
-            });
-        }, 1000);
+        });
     }
 }

@@ -2,7 +2,7 @@ platform :ios, '15.0'
 use_frameworks!
 
 def portals_pods
-  pod 'IonicPortals', '0.14.0-rc.0'
+  pod 'IonicPortals', '0.14.0'
   pod 'CapacitorCamera', '~> 8.0'
   pod 'IonicLiveUpdates', '~> 0.5.8'
   pod 'CapawesomeCapacitorLiveUpdate', :path => 'node_modules/@capawesome/capacitor-live-update'

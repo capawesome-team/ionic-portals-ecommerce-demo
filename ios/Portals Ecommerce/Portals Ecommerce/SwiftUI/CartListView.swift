@@ -60,10 +60,6 @@ struct CartListView_Previews: PreviewProvider {
                 .navigationTitle("Cart")
                 .navigationBarTitleDisplayMode(.large)
         }
-        .onAppear {
-            // Register Portals
-            PortalsRegistrationManager.shared.register(key: "YOUR_PORTALS_KEY");
-        }
     }
 }
 #endif

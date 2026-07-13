@@ -19,8 +19,6 @@ buildscript {
     }
 }
 
-apply from: "variables.gradle"
-
 allprojects {
     repositories {
         google()
