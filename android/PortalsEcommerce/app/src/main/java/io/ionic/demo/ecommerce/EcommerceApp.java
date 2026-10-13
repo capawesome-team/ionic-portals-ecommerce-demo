@@ -78,7 +78,7 @@ public class EcommerceApp extends Application {
         PortalManager.newPortal("checkout")
                 .setStartDir("webapp")
                 .setPlugins(Arrays.asList(ShopAPIPlugin.class, LiveUpdatePlugin.class))
-                .setLiveUpdateProviderManager(liveUpdateManager("portal-checkout"))
+                .setLiveUpdateProviderManager(liveUpdateManager())
                 .create();
 
         // Help Portal
@@ -89,7 +89,7 @@ public class EcommerceApp extends Application {
                 .setInitialContext(initialContext)
                 .setPlugins(Arrays.asList(ShopAPIPlugin.class, LiveUpdatePlugin.class))
                 .setPortalFragmentType(FadePortalFragment.class)
-                .setLiveUpdateProviderManager(liveUpdateManager("portal-help"))
+                .setLiveUpdateProviderManager(liveUpdateManager())
                 .create();
 
         // Profile Portal
@@ -101,7 +101,7 @@ public class EcommerceApp extends Application {
                 .addPlugin(CameraPlugin.class)
                 .addPlugin(LiveUpdatePlugin.class)
                 .setInitialContext(initialContextProfile)
-                .setLiveUpdateProviderManager(liveUpdateManager("portal-profile"))
+                .setLiveUpdateProviderManager(liveUpdateManager())
                 .create();
 
         // Fetch the latest web bundle for each portal from Capawesome Cloud.
@@ -120,13 +120,11 @@ public class EcommerceApp extends Application {
     private static final String TAG = "EcommerceApp";
 
     /**
-     * Constructs a Capawesome live update manager for a portal.
-     *
-     * @param managerKey A stable, unique key per portal so each persists its own active bundle.
+     * Constructs a Capawesome live update manager for a portal. All portals share the same
+     * `appId` and `channel`, so they share the same active bundle.
      */
-    private LiveUpdateIonicManager liveUpdateManager(String managerKey) {
+    private LiveUpdateIonicManager liveUpdateManager() {
         Map<String, Object> configuration = new HashMap<>();
-        configuration.put("managerKey", managerKey);
         configuration.put("appId", WEB_APP_ID);
         configuration.put("channel", CHANNEL);
         try {

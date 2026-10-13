@@ -48,34 +48,23 @@ extension Portal {
     private static let featuredAppId = "1234e875-f53c-411a-8f83-89ea304757c8"
     private static let activeChannel = "default"
 
-    /// Constructs a Capawesome live update manager for a portal. Each portal gets a stable,
-    /// unique `managerKey` so it persists its own active bundle.
+    /// Constructs a Capawesome live update manager for a portal. Portals that share the same
+    /// `appId` and `channel` share the same active bundle.
     private static func providerManager(for target: String) -> LiveUpdateIonicManager? {
-        let config: [String: Any]
+        let appId: String
         switch target {
-        case "webapp":
-            config = [
-                "managerKey": "portal-webapp",
-                "appId": webAppId,
-                "channel": activeChannel
-            ]
-        case "help":
-            config = [
-                "managerKey": "portal-help",
-                "appId": webAppId,
-                "channel": activeChannel
-            ]
+        case "webapp", "help":
+            appId = webAppId
         case "featured":
-            config = [
-                "managerKey": "portal-featured",
-                "appId": featuredAppId,
-                "channel": activeChannel
-            ]
+            appId = featuredAppId
         default:
             return nil
         }
 
-        return try? LiveUpdateIonicManager(configuration: config)
+        return try? LiveUpdateIonicManager(configuration: [
+            "appId": appId,
+            "channel": activeChannel
+        ])
     }
 
     static let featured = Self(

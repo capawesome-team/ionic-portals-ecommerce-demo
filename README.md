@@ -24,7 +24,7 @@ The app is built for iOS and Android. Both use the same web resources for their 
 Each Portal is configured with a live update manager backed by the Capawesome provider:
 
 - The web content for the portals is published to Capawesome Cloud (see `capawesome.config.json`, which maps `web/` and `featured-component/` to two Capawesome Cloud apps).
-- On **iOS**, `AppDelegate.swift` constructs one `LiveUpdateIonicManager` per Portal (with a per-portal `managerKey`, the Capawesome Cloud `appId`, and a `channel`) and attaches it via `liveUpdateSource: .provider(manager:)`.
+- On **iOS**, `AppDelegate.swift` constructs one `LiveUpdateIonicManager` per Portal (with the Capawesome Cloud `appId` and a `channel`; portals with the same `appId` and `channel` share their active bundle) and attaches it via `liveUpdateSource: .provider(manager:)`.
 - On **Android**, `EcommerceApp.java` does the same and attaches the manager via `PortalBuilder.setLiveUpdateProviderManager(...)`.
 - On launch, the app triggers `syncProvider()` for each Portal to fetch the latest bundle from Capawesome Cloud. Because the managers are constructed directly (there is no registry or registration step anymore), no retry logic is needed.
 
